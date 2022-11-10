@@ -3,8 +3,7 @@
 - [ ] Finish Terri's requests for Pharmeceutical Team **(this is a must have before presentation)**
     - [x] Add a page to the frontend specifically for the Pharmeceutical Team that has MK, Sample Name, ELN Notebook Number, and Date
           - [ ] How are we displaying samples for the Pharmeceutical Team - Are they on their own view samples page or the same view samples page and if so do we have the ability to filter to get only samples associated with pharmeceutical team?
-    - [ ] Add table in database specifically for the Pharmeceutical Team
-    - [ ] Make sure QR code scanning feautre that is present on the frontend works on multiple devices and can communicate with printer as well **(would be nice to be able to demo this in final presentation)**   
+    - [ ] Add table in database specifically for the Pharmeceutical Team  
     - [x] Finish Audit Trail feature *(I think this is already done)
 
 # ToDo's From Jonathan
