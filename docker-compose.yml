@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+    postgres:
+        image: postgres:latest
+        restart: always
+        environment:
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=merck-production
+        ports:
+            - 5432:5432
+        networks:
+            - shared-network
+        volumes:
+            - ./postgres-db:/var/lib/postgresql/data
+
+    server:
+        container_name: merck_label_dashboard_server
+        restart: unless-stopped
+        image: merck-lablogs-server:1.0.0
+        build:
+            context: server
+            target: production
+            dockerfile: Dockerfile
+        ports:
+            - 7777:7777
+        networks:
+            - shared-network
+        depends_on:
+            - postgres
+
+    client:
+        container_name: merck_label_dashboard_client
+        restart: unless-stopped
+        image: merck-lablogs-client:1.0.0
+        build:
+            context: client
+            target: production
+            dockerfile: Dockerfile
+        ports:
+            - 3000:3000
+        networks:
+            - shared-network
+        depends_on:
+            - server
+
+networks:
+    shared-network:

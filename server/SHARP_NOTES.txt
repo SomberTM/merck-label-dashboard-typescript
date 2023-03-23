@@ -1,0 +1,38 @@
+https://sharp.pixelplumbing.com/install
+Installation
+npm install sharp
+yarn add sharp
+Prerequisites
+
+Node.js >= 14.15.0
+Prebuilt binaries
+
+Ready-compiled sharp and libvips binaries are provided for use on the most common platforms:
+
+macOS x64 (>= 10.13)
+macOS ARM64
+Linux x64 (glibc >= 2.17, musl >= 1.1.24, CPU with SSE4.2)
+Linux ARM64 (glibc >= 2.17, musl >= 1.1.24)
+Windows x64
+Windows x86
+A ~7MB tarball containing libvips and its most commonly used dependencies is downloaded via HTTPS, verified via Subresource Integrity and decompressed into node_modules/sharp/vendor during npm install.
+
+This provides support for the JPEG, PNG, WebP, AVIF, TIFF, GIF and SVG (input) image formats.
+
+The following platforms have prebuilt libvips but not sharp:
+
+Linux ARMv7 (glibc >= 2.28)
+Linux ARMv6 (glibc >= 2.28)
+Windows ARM64
+The following platforms require compilation of both libvips and sharp from source:
+
+Linux x86
+Linux ARMv7 (glibc <= 2.27, musl)
+Linux ARMv6 (glibc <= 2.27, musl)
+Linux PowerPC
+FreeBSD
+OpenBSD
+
+`IMPORTANT`
+If you get an installation error try
+`npm install prebuild-install`

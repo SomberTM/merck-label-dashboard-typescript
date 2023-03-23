@@ -1,0 +1,93 @@
+.teams-and-fields-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 10px;
+    padding: 10px;
+    margin: auto;
+    margin-top: 10px;
+    width: 75vw;
+    height: 70vh;
+    max-height: 70vh;
+}
+
+.teams-container {
+    padding: 10px;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.header-with-background {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 50px;
+    background-color: #05857d15;
+}
+
+.teams-menu-list {
+    display: flex;
+    min-width: 10vw;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-menu-item {
+    width: 100%;
+    flex-direction: column;
+}
+
+.fields-and-team-options-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1.1fr 0.001fr 3fr;
+    grid-gap: 10px;
+    padding: 15px;
+
+    /* A better way would be fill the remaining height left in the parent element but, this works */
+    height: 80%;
+}
+
+.fields-container {
+    padding: 10px;
+    max-height: 100%;
+}
+
+.edit-fields-container {
+    height: 80%;
+}
+
+.edit-fields-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.teams-options {
+    padding: 10px;
+}
+
+.fields-footer {
+    display: grid;
+    max-height: 10%;
+    grid-template-columns: 1fr 0.01fr 0.1fr;
+    border-top: 1px solid #e0e0e0;
+}
+
+.edit-fields-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

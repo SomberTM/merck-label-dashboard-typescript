@@ -1,0 +1,106 @@
+datasource db {
+    provider = "postgresql"
+    url = env("DB_URI")
+}
+
+// ------------------------------
+// NEW MODELS BELOW
+// ------------------------------
+
+model Sample {
+    // ------------------------------------------------
+    // These 6 fields are present on every sample
+    id              String   @id @unique @default(uuid())
+    date_created    DateTime @default(now())
+    date_modified    DateTime @updatedAt
+    expiration_date DateTime @default(dbgenerated("now() + interval '1 day'"))
+    audit_id        String   @default(uuid())
+    audit_number    Int      @default(autoincrement()) @unique
+    // ------------------------------------------------
+
+    // The team that the sample belongs to
+    team_name       String
+
+    // The "unstructured data" of the sample
+    data            Json     @default("{}") 
+
+    // This maps to the table name in the database.
+    // The model is what prisma will use on the client.
+    // - i.e. prisma.sample.findMany()
+    @@map("samples")
+}
+
+model Team {
+    // The team name is the primary key
+    name   String @id @unique
+
+    // This maps to the table name in the database.
+    // The model is what prisma will use on the client.
+    // - i.e. prisma.team.findMany()
+    @@map("teams")
+}
+
+model TeamField {
+    team_name    String 
+
+                         // @unique was causing some issues on frontend
+    name         String  // @unique // This should map to a key in the data field of the sample with the same team_name
+    display_name String? // If not provided we will try to interpret from the name field
+    id           Int     @id @default(autoincrement()) @unique  // The id of the field, need this since we can't use the team_name as the primary key
+
+    // This maps to the table name in the database.
+    // The model is what prisma will use on the client.
+    // - i.e. prisma.team_field.findMany()
+    @@map("team_fields")
+}
+
+model Deleted {
+    // This is all the information we need to store about a deleted sample
+    // With this we get the entire history of the sample
+    audit_id     String @id @unique
+    team_name    String
+
+    // We need a unique id for each deleted sample
+    date_deleted DateTime @default(now())
+
+    // This maps to the table name in the database.
+    // The model is what prisma will use on the client.
+    // - i.e. prisma.deleted.findMany()
+    @@map("deleted_samples")
+}
+
+model Printer {
+    ip       String  @id @unique
+    name     String? @default("Brother QL-820NWB")
+    location String? @default("unknown")
+
+    // This maps to the table name in the database.
+    // The model is what prisma will use on the client.
+    // - i.e. prisma.printer.findMany()
+    @@map("printers")
+}
+
+// With this setup teams should be able to have multiple labels with different sizes
+// To find the current label for a specific size for a team, we can do something like:
+// Group by team_name, then group by label_width and label_length, then max the id
+// - also if provided a label width and length, just group by the team they provided and max id again.
+model Label {
+    id        Int    @id @default(autoincrement()) @unique
+
+    team_name String // The team that the label belongs to
+
+    name      String // The name of the label
+    width     Int    // The width of the label in mm
+    length    Int    // The length of the label in mm
+    
+    data      Json   // The data that will be used to generate the label
+
+    // This maps to the table name in the database.
+    // The model is what prisma will use on the client.
+    // - i.e. prisma.label.findMany()
+    @@map("team_labels")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}

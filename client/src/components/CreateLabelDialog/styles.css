@@ -1,0 +1,7 @@
+.dialog-content-container {
+    display: flex;
+}
+
+.dialog-input {
+    margin: 10px;
+}

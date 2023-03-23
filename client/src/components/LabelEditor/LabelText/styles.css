@@ -1,0 +1,11 @@
+.label-text-container {
+    position: absolute;
+    user-select: none;
+    width: fit-content;
+    z-index: 1;
+}
+
+.label-text-selected {
+    color: #fff;
+    outline: solid 1px black;
+}

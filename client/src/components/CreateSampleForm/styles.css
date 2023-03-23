@@ -1,0 +1,25 @@
+.sample-form-paper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 10px;
+    max-width: 500px;
+}
+
+.sample-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sample-form-header-text {
+    color: inherit;
+}
+
+.sample-form-button-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 10px;
+}

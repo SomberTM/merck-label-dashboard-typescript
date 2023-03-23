@@ -1,0 +1,16 @@
+/client/node_modules
+/client/dist
+
+/client/package-lock.json
+
+/server/node_modules
+/server/dist
+/server/prisma/migrations
+
+/server/.env
+/server/package-lock.json
+
+/postgres-db
+
+.vscode
+.DS_Store

@@ -1,0 +1,26 @@
+.nav-toolbar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: auto;
+    padding: 5px;
+}
+
+.nav-navigation-buttons-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-navigation-buttons-container > * {
+    margin: 0px 5px;
+}
+
+.link-button {
+    text-decoration: none;
+    color: inherit;
+}

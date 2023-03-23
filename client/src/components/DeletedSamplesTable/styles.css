@@ -1,0 +1,15 @@
+/* :root {
+    --data-grid-expired-color: rgb(59, 173, 166);
+    --data-grid-expired-opacity: 0.8;
+} */
+
+.data-grid-container {
+    height: 75vh;
+    display: flex;
+    flex-flow: column;
+    margin: 20px;
+}
+
+.data-grid {
+    flex: 1 1 auto;
+}
