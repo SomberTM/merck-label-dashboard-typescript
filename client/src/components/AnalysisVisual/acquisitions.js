@@ -1,58 +1,35 @@
 import Chart from 'chart.js/auto'
-const Utils = ChartUtils.init();
 
 
-// <block:setup:1>
-const DATA_COUNT = 7;
-const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+import { getAquisitionsByYear } from './api'
 
-const labels = Utils.months({count: 7});
-const data = {
-  labels: labels,
-  datasets: [
+// ...
+
+const data = await getAquisitionsByYear();
+(async function() {
+  const data = [
+    { year: 2010, count: 10 },
+    { year: 2011, count: 20 },
+    { year: 2012, count: 15 },
+    { year: 2013, count: 25 },
+    { year: 2014, count: 22 },
+    { year: 2015, count: 30 },
+    { year: 2016, count: 28 },
+  ];
+
+  new Chart(
+    document.getElementById('acquisitions'),
     {
-      label: 'Dataset 1',
-      data: [10, 30, 39, 20, 25, 34, -10],
-      borderColor: Utils.CHART_COLORS.red,
-      backgroundColor: Utils.CHART_COLORS.red,
-    },
-    {
-      label: 'Dataset 2',
-      data: [18, 33, 22, 19, 11, 39, 30],
-      borderColor: Utils.CHART_COLORS.blue,
-      backgroundColor: Utils.CHART_COLORS.blue,
-    }
-  ]
-};
-// </block:setup>
-
-// <block:config:0>
-const config = {
-  type: 'line',
-  data: data,
-  options: {
-    responsive: true,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Suggested Min and Max Settings'
-      }
-    },
-    scales: {
-      y: {
-        // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
-        suggestedMin: 30,
-
-        // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
-        suggestedMax: 50,
+      type: 'bar',
+      data: {
+        labels: data.map(row => row.year),
+        datasets: [
+          {
+            label: 'Acquisitions by year',
+            data: data.map(row => row.count)
+          }
+        ]
       }
     }
-  },
-};
-// </block:config>
-
-module.exports = {
-  config: config,
-};
-
-
+  );
+})();

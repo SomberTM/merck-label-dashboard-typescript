@@ -5,6 +5,7 @@ import 'chartjs-adapter-luxon';
 
 
 
+
 // <block:setup:1>
 const DATA_COUNT = 12;
 const labels : string[] = [];
