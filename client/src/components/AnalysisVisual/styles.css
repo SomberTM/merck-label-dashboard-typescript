@@ -1,0 +1,33 @@
+.printers-panel {
+    display: flex;
+    margin-inline: auto;
+    margin-top: 10px;
+    width: 70vw;
+    height: 70vh;
+}
+
+.view-printers {
+    flex-grow: 0.5;
+    padding: 10px;
+    min-width: 30%;
+}
+
+.create-printer {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.create-printer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-bottom: 1px solid gray;
+    align-items: center;
+    gap: 10px;
+}
