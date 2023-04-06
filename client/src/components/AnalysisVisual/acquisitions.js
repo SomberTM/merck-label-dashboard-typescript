@@ -1,4 +1,5 @@
 import Chart from 'chart.js/auto'
+const Utils = ChartUtils.init();
 
 
 // <block:setup:1>
