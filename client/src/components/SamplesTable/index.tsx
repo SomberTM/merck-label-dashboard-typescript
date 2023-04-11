@@ -392,6 +392,8 @@ const SamplesTable: React.FC = () => {
                 samples={selectedSamples}
             />
         </>
+
+        
     )
 }
 
