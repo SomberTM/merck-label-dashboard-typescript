@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import NavBar from '../components/NavBar'
+import AnalysisVisual from '../components/AnalysisVisual'
 import { useFetchAll } from '../redux'
 
 const RootPage = () => {
@@ -17,6 +18,7 @@ const RootPage = () => {
     return (
         <>
             <NavBar />
+            <AnalysisVisual />
         </>
     )
 }
