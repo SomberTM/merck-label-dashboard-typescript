@@ -21,11 +21,14 @@ model Team {
 }
 
 model TeamField {
-    id     String @id @default(cuid())
-    teamId String @unique
-    team   Team   @relation(fields: [teamId], references: [id])
+    id           String  @id @default(cuid())
+    teamId       String
+    team         Team    @relation(fields: [teamId], references: [id])
+    name         String
+    defaultValue String?
+    displayName  String?
 
-    @@unique([id, teamId])
+    @@unique([id])
 }
 
 model Sample {
@@ -36,20 +39,20 @@ model Sample {
     auditId        String   @default(cuid())
     auditNumber    Int      @default(autoincrement())
     data           Json     @default("{}")
-    teamId         String   @unique
+    teamId         String   
     team           Team     @relation(fields: [teamId], references: [id], onUpdate: NoAction)
 
-    @@unique([id, teamId])
+    @@unique([id])
 }
 
 model DeletedSample {
     id            String   @id @default(cuid())
     sampleAuditId String   @unique
     dateDeleted   DateTime @default(now())
-    teamId        String   @unique
+    teamId        String   
     team          Team     @relation(fields: [teamId], references: [id])  
 
-    @@unique([id, sampleAuditId, teamId])
+    @@unique([id, sampleAuditId])
 }
 
 model Printer {
@@ -63,14 +66,14 @@ model Printer {
 
 model LabelTemplate {
     id                  String @id @default(cuid())
-    teamId              String @unique
+    teamId              String 
     team                Team   @relation(fields: [teamId], references: [id])
     name                String
     width               Int
     length              Int
     data                Json
 
-    @@unique([id, teamId])
+    @@unique([id])
 }
 
 generator client {
