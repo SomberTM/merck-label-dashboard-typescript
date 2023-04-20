@@ -20,6 +20,7 @@ import {
     Typography,
 } from '@mui/material'
 import { Add, ChevronRight, Delete, Info } from '@mui/icons-material'
+import { sizing } from '@mui/system';
 
 import { useEffect, useState } from 'react'
 import { TeamField } from '../../api'
@@ -95,7 +96,7 @@ function ConfirmDeleteTeamDialog({ open, onClose, onSubmit, teamName }) {
             <DialogTitle>Delete Team</DialogTitle>
             <DialogContent>
                 <Typography>
-                    Are you sure you want to delete team '{teamName}'?
+                    Are you sure you want to delete team '{teamName}'? All related samples will be deleted.
                 </Typography>
             </DialogContent>
             <DialogActions>
@@ -306,95 +307,80 @@ const EditTeamFieldsPanel: React.FC = () => {
                     </Typography>
                 </Box>
                 <Divider />
-                <MenuList className='teams-menu-list'>
-                    {teams.map((team, index) => (
-                        <MenuItem
-                            className='team-menu-item'
-                            key={index}
-                            onClick={() => setTeam(team.name)}
-                        >
-                            <Typography variant='h6' color='primary' noWrap>
-                                {team.name === stateTeam ? (
-                                    <ChevronRight />
-                                ) : (
-                                    ''
-                                )}
+                <Box className='teams-list-container'>
+                    <MenuList className='teams-menu-list'>
+                        {teams.map((team, index) => (
+                            <MenuItem
+                                className='team-menu-item'
+                                key={index}
+                                onClick={() => setTeam(team.name)}
+                            >
+                                <Typography variant='h6' color='primary' noWrap>
+                                    {team.name === stateTeam ? (
+                                        <ChevronRight />
+                                    ) : (
+                                        ''
+                                    )}
 
-                                {team.name}
-                            </Typography>
-                        </MenuItem>
-                    ))}
-                </MenuList>
-            </Paper>
-
-            <Paper className='fields-container' elevation={3}>
-                <Box className='header-with-background'>
-                    <Typography variant='h4' color='primary' fontWeight={600}>
-                        EDITING TEAM <i>{stateTeam}</i>
-                    </Typography>
+                                    {team.name}
+                                </Typography>
+                            </MenuItem>
+                        ))}
+                    </MenuList>
                 </Box>
                 <Divider />
-                <Box className='fields-and-team-options-container'>
-                    <Box className='teams-options-container'>
-                        <Box className='header'>
-                            <Typography variant='h5' color='primary'>
-                                TEAM OPTIONS
-                            </Typography>
-                        </Box>
-                        <Divider />
-                        <Box className='teams-options'>
-                            <Button fullWidth onClick={onCreateTeamClick}>
-                                Create Team
-                            </Button>
-                            {/* 
+                <Box className='teams-options'>
+                    <Button onClick={onCreateTeamClick}>
+                        Create
+                    </Button>
+                    {/* 
                                 Renaming teams is a bit of a problem. With the restriction that we can only append to the samples table. 
                                 To rename a team, we would have to go through and 'delete' all samples with the old team name. Then, 
                                 we would have to recreate all samples with the new team name. This is a bit of a pain and would
                                 cause unnecessary strain on the database. It can certainly be implmeneted, but i feel it is not a priority 
                                 nor something I feel like dealing with.
-                            */}
-                            {/* <Button fullWidth>Rename Team</Button> */}
-                            <Button
-                                fullWidth
-                                onClick={onConfirmDeleteTeamClick}
-                            >
-                                Delete Team
-                            </Button>
-                        </Box>
-                    </Box>
-                    <Divider orientation='vertical' />
-                    <Box className='edit-fields-container'>
-                        <Box className='header'>
-                            <Typography variant='h5' color='primary'>
-                                TEAMS FIELDS
-                                <Tooltip
-                                    title={fieldsTooltipText}
-                                    className='fields-info-tooltip'
-                                >
-                                    <Info />
-                                </Tooltip>
-                            </Typography>
-                        </Box>
-                        <Divider />
-                        <DataGrid
-                            experimentalFeatures={{ newEditingApi: true }}
-                            sx={{ width: '100%' }}
-                            rows={localFields.filter((field) => !field.deleted)}
-                            columns={fieldsGridColumnDefinitions}
-                            editMode='row'
-                            processRowUpdate={processFieldRowUpdate}
-                            components={{
-                                Footer: FieldsGridFooterComponent,
-                            }}
-                            componentsProps={{
-                                footer: {
-                                    addEmptyField,
-                                    onSaveTeamFields,
-                                },
-                            }}
-                            disableSelectionOnClick
-                        />
-                    </Box>
+                    */}
+                    {/* <Button>Rename Team</Button> */}
+                    <Button
+                        onClick={onConfirmDeleteTeamClick}
+                    >
+                        Delete
+                    </Button>
+                </Box>
+            </Paper>
+
+            <Paper className='fields-container' elevation={3}>
+                <Box className='header-with-background'>
+                    <Typography variant='h4' color='primary' fontWeight={600}>
+                        TEAMS FIELDS <i>{stateTeam}</i>
+                        <Tooltip
+                            title={fieldsTooltipText}
+                            className='fields-info-tooltip'
+                        >
+                            <Info />
+                        </Tooltip>
+                    </Typography>
+                </Box>
+                <Divider />
+                <Box className='edit-fields-container'>
+                    <DataGrid
+                        experimentalFeatures={{ newEditingApi: true }}
+                        sx={{ width: '100%' }}
+                        rows={localFields.filter((field) => !field.deleted)}
+                        columns={fieldsGridColumnDefinitions}
+                        editMode='row'
+                        processRowUpdate={processFieldRowUpdate}
+                        components={{
+                            Footer: FieldsGridFooterComponent,
+                        }}
+                        componentsProps={{
+                            footer: {
+                                addEmptyField,
+                                onSaveTeamFields,
+                            },
+                        }}
+                        disableSelectionOnClick
+                    />
                 </Box>
             </Paper>
         </Box>
