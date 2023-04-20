@@ -62,7 +62,7 @@
 }
 
 .edit-fields-container {
-    height: 80%;
+    height: 88.5%;
 }
 
 .edit-fields-grid {
@@ -73,10 +73,6 @@
     height: 100%;
     max-height: 100%;
     overflow: scroll;
-}
-
-.teams-options {
-    padding: 10px;
 }
 
 .fields-footer {
@@ -90,4 +86,19 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.teams-list-container {
+    display: flex;
+    justify-content: center;
+    max-width: auto;
+    max-height: 80%;
+    height: 79.5%;
+    overflow-y: scroll;
+}
+
+.teams-options {
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-around;
 }

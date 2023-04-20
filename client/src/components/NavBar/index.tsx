@@ -74,15 +74,16 @@ const NavBar: React.FC = () => {
                     variant='h2'
                     color='primary'
                     sx={{ fontWeight: '1' }}
+                    textAlign = 'center'
                 >
                     Merck Label Dashboard
                 </Typography>
                 <div className='nav-navigation-buttons-container'>
-                    <Link to='/' className='link-button'>
+                    {/* <Link to='/' className='link-button'>
                         <IconButton>
                             <Home />
                         </IconButton>
-                    </Link>
+                    </Link> */}
                     <Link to='/samples' className='link-button'>
                         <Button variant={navigationButtonVariant}>
                             View Samples

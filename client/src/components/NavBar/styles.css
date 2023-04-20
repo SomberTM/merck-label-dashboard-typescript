@@ -18,6 +18,7 @@
 
 .nav-navigation-buttons-container > * {
     margin: 0px 5px;
+    padding-bottom: 5px;
 }
 
 .link-button {
