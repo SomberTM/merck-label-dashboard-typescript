@@ -32,6 +32,7 @@ Find us on GitHub!
     <ul><a href="#docker">Docker Installation</a></ul>
     <ul><a href="#installation">Cloning the Repository</a></ul>
     <ul><a href="#imagebuild">Building the Docker Image</a></ul>
+    <ul><a href="#alternate">If Docker not working</a></ul>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -146,6 +147,58 @@ Once the image is build you can run
 docker-compose up
 ```
 
+<h2 id="alternate">4. If Docker not working</h2>
+If there is an error using Docker commends, please try:
+
+-- Set up Postgres database
+* Install Postgres from "https://www.postgresql.org/"
+* Set up your username and password
+* Set your port to be 5432
+* Create a database
+
+
+-- Set up URI and start server
+
+> ```bash
+> cd merck-label-dashboard-typescript/server
+> ```
+
+* Create a text file and save it as a .env file, and you can simply name it ".env" 
+* The .env should have one line of the URI information: 
+* URI format follows: DB_URI = postgres://{user}:{password}@localhost:{port}/{database_name}
+* The username and password are the username and password set for the Postgres
+* Default port is 5432, and the database name is set in the Postgres
+* The bracket should be taken out in the URI, e.g., DB_URI = postgres://abc:123456@localhost:5432/database_1
+
+Run the following comments in the terminal:
+> ```bash
+> npx prisma migrate dev --name init --preview-feature
+> ```
+
+> ```bash
+> npm install
+> ```
+
+> ```bash
+> npm start
+> ```
+
+-- Set up the frontend
+Start a new terminal and nevigate back to merck-label-dashboard-typescript
+
+> ```bash
+> cd merck-label-dashboard-typescript/client
+> ```
+
+> ```bash
+> npm install --force
+> ```
+
+> ```bash
+> npm start
+> ```
+
+Once the IP address is obtained, copy that into browser and the GUI is opened.
 <!-- USAGE EXAMPLES -->
 
 ## Usage
@@ -156,7 +209,6 @@ Below is a short demonstration of the user interface
 
 <!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -217,7 +269,7 @@ Alexis Hvostal (Team Leader): [https://github.com/alexishvostal](https://github.
 
 <!-->
 
-[product-screenshot]: --
+[product-screenshot]: assets/demo.gif
 [next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [next-url]: https://nextjs.org/
 [react.js]: assets/react.svg
