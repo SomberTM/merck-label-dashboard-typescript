@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlserver"
+    url = env("DATABASE_URL")
+}
+
+// --- Note on the columns with 'Json' type ---
+// In the future if we are forced to use sqlserver,
+// we can change Json to a String or Bytes field and do the
+// json serialization and deserialization manually
+// or through prisma middleware.
+
+model Site {
+    id          String @id @default(cuid())
+    name        String @unique 
+    state       String 
+    teams       Team[]
+}
+
+model Team {
+    id             String          @id @default(cuid())
+    name           String          
+    dateCreated    DateTime        @default(now())
+    siteId         String
+    site           Site            @relation(fields: [siteId], references: [id])
+    fields          TeamField[]
+    samples        Sample[]
+    printers       Printer[]
+    deletedSamples DeletedSample[]
+    labelTemplates LabelTemplate[]
+
+    @@unique([id, name])
+}
+
+model TeamField {
+    id           String   @id @default(cuid())
+    teamId       String 
+    team         Team     @relation(fields: [teamId], references: [id])
+    name         String
+    editable     Boolean
+    defaultValue String?
+    displayName  String?
+    samples      Sample[]
+
+    @@unique([id])
+}
+
+model Sample {
+    id             String      @id @default(cuid())
+    dateCreated    DateTime    @default(now())
+    dateModified    DateTime    @updatedAt
+    expirationDate DateTime    @default(dbgenerated("now() + interval '1 day'"))
+    auditId        String      @default(cuid())
+    auditNumber    Int         @default(autoincrement())
+    data           Bytes       @default("")
+    fields          TeamField[]
+    teamId         String   
+    team           Team        @relation(fields: [teamId], references: [id], onUpdate: NoAction)
+
+    @@unique([id])
+}
+
+model DeletedSample {
+    id            String   @id @default(cuid())
+    sampleAuditId String   @unique
+    dateDeleted   DateTime @default(now())
+    teamId        String   
+    team          Team     @relation(fields: [teamId], references: [id])  
+
+    @@unique([id, sampleAuditId])
+}
+
+model Printer {
+    id       String  @id @default(cuid())
+    ip       String  @unique
+    name     String? @default("No name")
+    location String? @default("No known location")
+    teamId   String
+    team     Team    @relation(fields: [teamId], references: [id])
+
+    @@unique([id, ip])
+}
+
+model LabelTemplate {
+    id                  String @id @default(cuid())
+    teamId              String 
+    team                Team   @relation(fields: [teamId], references: [id])
+    name                String
+    width               Int
+    length              Int
+    data                Bytes
+
+    @@unique([id])
+}
