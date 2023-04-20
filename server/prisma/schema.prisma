@@ -14,6 +14,7 @@ model Team {
     name           String          @unique @db.VarChar(255)
     fields          TeamField[]
     samples        Sample[]
+    printers       Printer[]
     deletedSamples DeletedSample[]
     labelTemplates LabelTemplate[]
 
@@ -60,6 +61,8 @@ model Printer {
     ip       String  @unique
     name     String? @default("No name")
     location String? @default("No known location")
+    teamId   String
+    team     Team    @relation(fields: [teamId], references: [id])
 
     @@unique([id, ip])
 }
