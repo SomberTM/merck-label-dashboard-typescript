@@ -25,6 +25,7 @@ const RootPage = () => {
     ] as const
 
     const barChartRef = useRef<HTMLCanvasElement>(null)
+    const barChartReff = useRef<HTMLCanvasElement>(null)
 
     // use the api to get the data
 
@@ -73,11 +74,15 @@ const RootPage = () => {
                             type: 'bar',
                             label: 'Samples by Month',
                             data: chartData,
+                            backgroundColor: 'rgba(0, 0, 0, 0.996)',
+                            borderColor: 'rgba(0, 112, 115, 0.5216)',
                         },
                         {
                             type: 'line',
                             label: 'Samples by Month',
                             data: chartData,
+                            backgroundColor: 'rgba(0, 0, 0, 0.996)',
+                            borderColor: 'rgba(0, 112, 115, 0.5216)',
                         },
                     ],
                 },
@@ -93,10 +98,54 @@ const RootPage = () => {
         return () => chart?.destroy()
     }, [barChartRef, chartData])
 
+
+
+    useEffect(() => {
+        let chart: Chart | null = null
+        if (barChartReff.current !== null) {
+            chart = new Chart(barChartReff.current, {
+                type: 'bar',
+                data: {
+                    labels: Object.values(monthDayToString),
+                    datasets: [
+                        {
+                            type: 'polarArea',
+                            label: 'Samples by Month',
+                            data: chartData,
+                        },
+                        {
+                            type: 'radar',
+                            label: 'Samples by Month',
+                            data: chartData,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { display: false } },
+                    },
+                    elements: {
+                        line: {
+                          borderWidth: 3
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Radar Chart: Count of month'
+                    },
+                },
+            })
+        }
+
+        return () => chart?.destroy()
+    }, [barChartReff, chartData])
+
     return (
         <>
             <NavBar />
             <canvas ref={barChartRef} />
+            <canvas ref={barChartReff} />
         </>
     )
 }
